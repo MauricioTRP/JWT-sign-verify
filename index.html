@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Inicia Sesión</h1>
+
+  <form action="/login" id="login">
+    <input type="email" id="email" name="email" placeholder="email">
+    <input type="password" name="password" id="password">
+    <button type="submit">Inicia Sesión</button>
+  </form>
+  <script>
+    document.getElementById("login").addEventListener("submit", async (event) => {
+      event.preventDefault()
+
+      const { email, password } = event.target
+
+      // fetch para enviar datos al servidor
+      const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email.value,
+          password: password.value
+        })
+      })
+
+      const data = await response.text()
+
+      event.target.innerHTML = data
+    })
+  </script>
+</body>
+</html>
